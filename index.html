@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalinga Handicraft — Handcrafted with Heart</title>
+<meta name="description" content="Discover authentic handcrafted art, textiles, pottery and jewellery made by skilled Indian artisans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ============ Added: branch decor + wooden-art 6-col grid tweaks ============
+     These can be moved into styles.css later — left here inline so they work
+     immediately without touching your existing stylesheet. */
+
+  .categories { position: relative; overflow: hidden; }
+
+  .category-branch {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: clamp(60px, 8vw, 140px);
+    object-fit: contain;
+    object-position: top center;
+    pointer-events: none;
+    opacity: 0.9;
+    z-index: 0;
+  }
+  .category-branch-left  { left: 0; }
+  .category-branch-right { right: 0; transform: scaleX(-1); }
+
+  .categories .wrap { position: relative; z-index: 1; }
+
+  /* 6 categories now instead of 5 */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    .category-branch { display: none; } /* keep mobile clean */
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ ORNAMENTAL TOP BORDER ============ -->
+<div class="deco-strip deco-strip--top" aria-hidden="true"></div>
+
+<!-- ============ TOP UTILITY STRIP ============ -->
+<div class="topbar">
+  <p>Free shipping on orders above ₹999 — Handmade, always original</p>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-row">
+    <a href="#" class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64"><use href="#motif-sun"></use></svg>
+      </span>
+      <span class="brand-text">
+        <strong>Kalinga Handicraft</strong>
+        <em>Handcrafted with Heart</em>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="#" class="active">Home</a>
+      <a href="#categories">Shop</a>
+      <a href="#story">Artisans</a>
+      <a href="#story">Our Story</a>
+      <a href="#footer">Blog</a>
+      <a href="#footer">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Search" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.4" y2="16.4"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      </button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart, 0 items">
+        <svg viewBox="0 0 24 24"><path d="M3 4h2l2.6 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="21" r="1.3"/><circle cx="17" cy="21" r="1.3"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="search-panel" id="searchPanel">
+    <div class="wrap">
+      <form id="searchForm">
+        <input type="search" placeholder="Search for pottery, textiles, jewellery…" aria-label="Search products" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="hero-corner" viewBox="0 0 120 120" aria-hidden="true"><use href="#motif-sun"></use></svg>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="hero-kicker">A tribute to Indian craft</p>
+      <h1>Handcrafted<br>with <span>Heritage</span></h1>
+      <div class="hero-rule" aria-hidden="true">
+        <svg viewBox="0 0 200 14"><use href="#motif-divider"></use></svg>
+      </div>
+      <p class="hero-desc">Discover the beauty of hand-crafted art by skilled artisans. Every piece carries a story of tradition, culture and quiet devotion.</p>
+      <a href="#categories" class="btn btn-primary">
+        Explore Collection
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <!--
+      HOME PAGE / HERO IMAGE
+      Save your image as: images/home-hero.jpg
+      (or update the src below to match whatever filename you use)
+    -->
+    <div class="hero-art">
+      <img src="images/home-hero.jpg" alt="Handcrafted Indian art and artisans" class="hero-illustration" loading="eager">
+    </div>
+  </div>
+
+  <img src="images/hero-border.png" alt="" class="hero-border" aria-hidden="true">
+</section>
+
+<!-- ============ VALUE STRIP ============ -->
+<section class="value-strip">
+  <div class="wrap value-grid">
+    <div class="value-item">
+      <div><h3>Handcrafted</h3><p>Made with love by skilled hands</p></div>
+    </div>
+    <div class="value-item">
+      <div><h3>Sustainable</h3><p>Eco-friendly materials, always</p></div>
+    </div>
+    <div class="value-item">
+      <div><h3>Support Artisans</h3><p>Empowering local communities</p></div>
+    </div>
+    <div class="value-item">
+      <div><h3>Authentic</h3><p>100% original, traditional craft</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="categories" id="categories">
+
+  <!--
+    SIDE BRANCH DECORATIONS
+    Save these two images as:
+      images/left-branch-tree.jpg
+      images/right-branch-tree.jpg
+    (a tall, narrow vine/floral illustration works best — see the reference
+    design). The right one is auto-mirrored with CSS (transform: scaleX(-1))
+    so a single artwork can be reused on both sides if you prefer.
+  -->
+  <img src="images/left-branch-tree.jpg" alt="" class="category-branch category-branch-left" aria-hidden="true">
+
+  <div class="wrap">
+    <h2 class="section-title">
+      <svg viewBox="0 0 40 14" class="title-flourish" aria-hidden="true"><use href="#motif-flourish"></use></svg>
+      Shop by Category
+      <svg viewBox="0 0 40 14" class="title-flourish flip" aria-hidden="true"><use href="#motif-flourish"></use></svg>
+    </h2>
+
+    <!--
+      CATEGORY CARD IMAGES
+      Save each image using the filename shown in each card's src
+      (all inside an "images" folder):
+
+        images/folk-paintings.jpg
+        images/handmade-decor.jpg
+        images/textiles.jpg
+        images/pottery-ceramics.jpg
+        images/jewellery.jpg
+        images/wooden-art.jpg
+
+      NOTE: if your live site still shows icon shapes instead of these
+      photos, it's because script.js is likely re-generating this grid on
+      load and overwriting it. Share script.js and I can remove that so
+      this static markup (with real photos) is what actually renders.
+
+      Add or remove <div class="category-card"> blocks to match your real
+      categories — just keep each image filename matching what you upload.
+    -->
+    <div class="category-grid" id="categoryGrid">
+      <a href="#" class="category-card">
+        <img src="images/folk-paintings.jpg" alt="Folk Paintings" loading="lazy">
+        <h3>Folk Paintings</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/handmade-decor.jpg" alt="Handmade Decor" loading="lazy">
+        <h3>Handmade Decor</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/textiles.jpg" alt="Textiles" loading="lazy">
+        <h3>Textiles</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/pottery-ceramics.jpg" alt="Pottery & Ceramics" loading="lazy">
+        <h3>Pottery &amp; Ceramics</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/jewellery.jpg" alt="Jewellery" loading="lazy">
+        <h3>Jewellery</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/wooden-art.jpg" alt="Wooden Art" loading="lazy">
+        <h3>Wooden Art</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/wall-art.jpg" alt="Wall Art" loading="lazy">
+        <h3>Wall Art</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Straw Crafts.jpg" alt="Straw Crafts" loading="lazy">
+        <h3>Straw Crafts</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/jute-products-bags.jpg" alt="Jute Products & Bags" loading="lazy">
+        <h3>Jute Products & Bags</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/palm-leaf-crafts.jpg" alt="Palm Leaf Crafts" loading="lazy">
+        <h3>Palm Leaf Crafts</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Bamboo & Cane Crafts  .jpg" alt="Bamboo & Cane Crafts" loading="lazy">
+        <h3>Bamboo & Cane Crafts</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Gift Items.jpg" alt="Gift Items" loading="lazy">
+        <h3>Gift Items</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Mementos Awards.jpg" alt="Mementos & Awards" loading="lazy">
+        <h3>Mementos & Awards</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Home Décor.jpg" alt="Home Décor" loading="lazy">
+        <h3>Home Décor</h3>
+      </a>
+      <a href="#" class="category-card">
+        <img src="images/Custom Products.jpg" alt="Custom Products" loading="lazy">
+        <h3>Custom Products</h3>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <!--
+      OUR STORY IMAGE
+      Save your image as: images/our-story.jpg
+      (or update the src below to match whatever filename you use)
+    -->
+    <div class="story-art">
+      <img src="images/our-story.jpg" alt="Artisans shaping pottery by hand" class="story-illustration" loading="lazy">
+    </div>
+
+    <div class="story-copy">
+      <p class="eyebrow-line"><span>Our Story</span></p>
+      <h2>Bridging Tradition<br><em>and Today</em></h2>
+      <p>Kalinga Handicraft is a celebration of India's rich artistic heritage. We bring you authentic, handcrafted creations while supporting the artisans who keep these traditions alive — one pot, one weave, one carving at a time.</p>
+      <a href="#footer" class="btn btn-outline">
+        Know More About Us
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE STRIP ============ -->
+<section class="service-strip">
+  <img src="images/quicklinks-border-top.png" alt="" class="service-strip-border service-strip-border--top" aria-hidden="true">
+  <div class="wrap service-grid">
+    <div class="service-item">
+      <div><h4>Free Shipping</h4><p>On orders above ₹999</p></div>
+    </div>
+    <div class="service-item">
+      <div><h4>Easy Returns</h4><p>7 day return policy</p></div>
+    </div>
+    <div class="service-item">
+      <div><h4>Secure Payments</h4><p>100% secure checkout</p></div>
+    </div>
+    <div class="service-item">
+      <div><h4>Customer Support</h4><p>We're here to help</p></div>
+    </div>
+  </div>
+  <img src="images/quicklinks-border-bottom.png" alt="" class="service-strip-border service-strip-border--bottom" aria-hidden="true">
+</section>
+
+<!-- ============ NEWSLETTER + FOOTER ============ -->
+<footer class="site-footer" id="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#motif-sun"></use></svg></span>
+        <span class="brand-text"><strong>Kalinga Handicraft</strong><em>Handcrafted with Heart</em></span>
+      </a>
+    </div>
+
+    <nav class="footer-col" aria-label="Quick links">
+      <h5>Quick Links</h5>
+      <a href="#categories">Shop</a>
+      <a href="#story">Artisans</a>
+      <a href="#story">Our Story</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <nav class="footer-col" aria-label="Categories">
+      <h5>Categories</h5>
+      <a href="#categories">Folk Paintings</a>
+      <a href="#categories">Handmade Decor</a>
+      <a href="#categories">Textiles</a>
+      <a href="#categories">Pottery &amp; Ceramics</a>
+      <a href="#categories">Jewellery</a>
+      <a href="#categories">Wooden Art</a>
+    </nav>
+
+    <div class="footer-col footer-newsletter">
+      <h5>Stay Connected</h5>
+      <p>Be the first to know about new arrivals, stories and offers.</p>
+      <form id="newsletterForm">
+        <input type="email" required placeholder="Enter your email" aria-label="Email address">
+        <button type="submit" aria-label="Subscribe">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <p class="form-note" id="newsletterNote" role="status"></p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="Pinterest">PT</a>
+        <a href="#" aria-label="YouTube">YT</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Kalinga Handicraft. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Toast for cart / actions -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============ SVG SYMBOL DEFS (shared motifs) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="motif-sun" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="9" fill="currentColor"/>
+      <g fill="currentColor">
+        <g id="petalgroup">
+          <ellipse cx="32" cy="10" rx="4" ry="9"/>
+        </g>
+      </g>
+      <g fill="currentColor">
+        <ellipse cx="32" cy="10" rx="3.4" ry="8"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(30 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(60 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(90 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(120 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(150 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(180 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(210 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(240 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(270 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(300 32 32)"/>
+        <ellipse cx="32" cy="10" rx="3.4" ry="8" transform="rotate(330 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="2.4 3.4"/>
+    </symbol>
+
+    <symbol id="motif-divider" viewBox="0 0 200 14">
+      <line x1="0" y1="7" x2="70" y2="7" stroke="currentColor" stroke-width="2"/>
+      <circle cx="85" cy="7" r="4" fill="currentColor"/>
+      <circle cx="100" cy="7" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="115" cy="7" r="4" fill="currentColor"/>
+      <line x1="130" y1="7" x2="200" y2="7" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+
+    <symbol id="motif-flourish" viewBox="0 0 40 14">
+      <line x1="0" y1="7" x2="26" y2="7" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M26 7 q6 -7 12 0 q-6 7 -12 0Z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>

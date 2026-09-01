@@ -57,7 +57,7 @@
     { name:'Wooden Art',         color:'#DFCBAE', image:'images/wooden-art.jpg'        },
     { name:'Wall Art',           color:'#DFCBAE', image:'images/wall-art.jpg'          },
     { name:'Straw Crafts',       color:'#EADFC4', image:'images/Straw Crafts.jpg'      },
-    { name:'Jute Products & Bags', color:'#DCE6DA', image:'images/jute-products-bags.jpg'     },
+    { name:'Jute Products & Bags', color:'#DCE6DA', image:'images/jute.jpg' },
     { name:'Palm Leaf Crafts',       color:'#F0D9C7', image:'images/palm-leaf-crafts.jpg'      },
     { name:'Bamboo & Cane Crafts  ',       color:'#EED9BE', image:'images/Bamboo & Cane Crafts  .jpg'      },
     { name:'Gift Items',       color:'#E7DCC0', image:'images/Gift Items.jpg'      },

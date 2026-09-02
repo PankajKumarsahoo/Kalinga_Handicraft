@@ -271,29 +271,104 @@ ul{ list-style:none; margin:0; padding:0; }
 .category-grid{
   display:grid; grid-template-columns:repeat(6,1fr); gap:20px;
 }
-.cat-card{
+
+/* Side branch decorations flanking the category grid. Save a tall,
+   narrow vine/floral illustration as images/left-branch-tree.jpg; the
+   right side reuses it flipped, so one artwork covers both. */
+.categories{ position:relative; overflow:hidden; }
+.category-branch{
+  position:absolute; top:0; height:100%;
+  width:clamp(60px, 8vw, 140px);
+  object-fit:contain; object-position:top center;
+  pointer-events:none; opacity:.9; z-index:0;
+}
+.category-branch-left{ left:0; }
+.category-branch-right{ right:0; transform:scaleX(-1); }
+.categories .wrap{ position:relative; z-index:1; }
+
+/* Product / category cards. Each is a .fx-card (see "Interactive card
+   hover effects" below) so hovering lifts it, lights a cursor-tracked
+   glow behind the photo, and spins a thin gradient ring around the edge. */
+.category-card{
+  position:relative;
+  display:block;
   background:var(--cream-deep);
   border-radius:var(--radius-md);
-  padding:18px 18px 22px;
-  text-align:center;
   border:1px solid var(--sand-dark);
-  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-  cursor:pointer;
+  overflow:hidden;
+  text-align:center;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
 }
-.cat-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-card); border-color:var(--terracotta); }
-.cat-thumb{
-  width:100%; aspect-ratio:1; border-radius:10px; margin-bottom:14px;
-  display:grid; place-items:center; overflow:hidden;
+.category-card:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--shadow-card);
+  border-color:transparent;
 }
-.cat-thumb svg{ width:58%; height:58%; }
-.cat-card h3{ font-size:1rem; font-weight:700; margin-bottom:6px; color:var(--charcoal); }
-.cat-card .go{
-  display:inline-flex; width:26px; height:26px; border-radius:50%;
-  border:1.4px solid var(--terracotta); color:var(--terracotta);
-  align-items:center; justify-content:center; transition:background .2s ease, color .2s ease;
+.category-card img{
+  position:relative; z-index:1;
+  width:100%; aspect-ratio:1; object-fit:cover;
+  transition:transform .5s ease;
 }
-.cat-card .go svg{ width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:2.4; margin:0; }
-.cat-card:hover .go{ background:var(--terracotta); color:var(--cream); }
+.category-card:hover img{ transform:scale(1.08); }
+.category-card h3{
+  position:relative; z-index:1;
+  font-size:1rem; font-weight:700; color:var(--charcoal);
+  padding:16px 14px 20px;
+}
+
+/* =========================================================
+   Interactive card hover effects: cursor-tracked glow +
+   spinning circular border line. Applied via the .fx-card
+   class (added on .category-card, .value-block, and a few
+   other panels). The glow position is driven by --mx / --my,
+   set in script.js on pointermove; it degrades gracefully to
+   a centred glow if JS never sets them.
+========================================================= */
+.fx-card{
+  position:relative;
+  isolation:isolate;
+}
+.fx-card::before,
+.fx-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  opacity:0;
+  transition:opacity .35s ease;
+  pointer-events:none;
+}
+/* Cursor-tracked glow */
+.fx-card::before{
+  z-index:0;
+  background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%), rgba(181,74,38,.32), transparent 70%);
+}
+/* Spinning circular border line */
+.fx-card::after{
+  z-index:3;
+  inset:-1px;
+  padding:2px;
+  background:conic-gradient(from var(--fx-angle,0deg), transparent 0%, var(--gold) 18%, var(--terracotta) 36%, transparent 55%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:fx-spin 2.6s linear infinite;
+  animation-play-state:paused;
+}
+.fx-card:hover::before,
+.fx-card:hover::after{ opacity:1; }
+.fx-card:hover::after{ animation-play-state:running; }
+@keyframes fx-spin{
+  to{ --fx-angle:360deg; }
+}
+@property --fx-angle{
+  syntax:'<angle>';
+  inherits:true;
+  initial-value:0deg;
+}
+@media (prefers-reduced-motion: reduce){
+  .fx-card::after{ animation:none; }
+}
 
 /* =========================================================
    Story
@@ -409,6 +484,232 @@ ul{ list-style:none; margin:0; padding:0; }
 }
 
 /* =========================================================
+   Icon images (replaces inline SVG icons on Contact / Our Story)
+   Drop a small square PNG (ideally on a transparent background,
+   around 64x64px) at each path named in the page markup.
+========================================================= */
+.icon-btn img{ width:20px; height:20px; object-fit:contain; }
+.info-icon img,
+.ticon-img,
+.vicon-img,
+.stat-icon img{ width:22px; height:22px; object-fit:contain; }
+.t-dot-img{ width:18px; height:18px; object-fit:contain; }
+
+/* =========================================================
+   Page hero (Contact / Our Story — shared shape, own art)
+========================================================= */
+.page-hero{
+  position:relative;
+  background:linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+  overflow:hidden;
+}
+.page-hero-grid{
+  display:grid; grid-template-columns:1.05fr 1fr; align-items:center; gap:40px;
+  padding-block:56px 44px;
+}
+.page-hero-kicker{ display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+.page-hero-kicker .rule{ width:56px; height:1px; background:var(--terracotta); }
+.page-hero-kicker span{ color:var(--terracotta); font-size:.85rem; font-weight:700; }
+.page-hero-copy h1{ font-size:clamp(2.4rem,4.2vw,3.4rem); line-height:1.05; font-weight:600; color:var(--green-dark); }
+.page-hero-copy h1 em{ font-style:italic; color:var(--terracotta); font-weight:500; }
+.page-hero-copy h2{ margin-top:22px; font-size:1.35rem; font-weight:500; color:var(--ink); max-width:34ch; }
+.page-hero-copy p{ margin-top:16px; color:var(--brown); max-width:44ch; font-size:1.02rem; }
+.page-hero-copy .btn{ margin-top:26px; }
+.page-hero-art{ position:relative; aspect-ratio:6/5; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--sand-dark); }
+.page-hero-art img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* =========================================================
+   Contact page
+========================================================= */
+.contact-section{ padding-block:64px; }
+.contact-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;
+}
+.panel{
+  background:var(--cream); border:1px solid var(--sand-dark); border-radius:var(--radius-md);
+  padding:32px;
+}
+.panel h3{ font-size:1.25rem; font-weight:600; margin-bottom:22px; }
+.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.field{
+  width:100%; font:inherit; padding:13px 16px; border-radius:var(--radius-sm);
+  border:1.5px solid var(--sand-dark); background:var(--cream-deep); color:var(--ink);
+}
+.field::placeholder{ color:var(--brown); opacity:.75; }
+textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
+.send-row{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.privacy-note{ display:flex; align-items:center; gap:10px; font-size:.82rem; color:var(--brown); }
+.privacy-note img{ width:18px; height:18px; }
+
+.contact-info{ display:flex; flex-direction:column; gap:22px; }
+.info-item{ display:flex; gap:16px; align-items:flex-start; }
+.info-icon{
+  flex:none; width:44px; height:44px; border-radius:50%; background:var(--cream-deep);
+  border:1px solid var(--sand-dark); display:grid; place-items:center;
+}
+.info-item h5{ font-size:.98rem; font-weight:700; margin-bottom:4px; }
+.info-item p{ font-size:.86rem; color:var(--brown); }
+.socials-row{ display:flex; gap:10px; margin-top:4px; }
+.socials-row a{
+  width:30px; height:30px; border-radius:50%; background:var(--terracotta); color:var(--cream);
+  display:grid; place-items:center; font-size:.68rem; font-weight:700; transition:background .18s ease;
+}
+.socials-row a:hover{ background:var(--terracotta-dk); }
+
+.map-section{ padding-block:0 64px; }
+.map-card{
+  display:grid; grid-template-columns:0.8fr 1.4fr; background:var(--cream-deep);
+  border:1px solid var(--sand-dark); border-radius:var(--radius-md); overflow:hidden;
+}
+.map-intro{ padding:36px; }
+.map-intro p{ color:var(--brown); font-size:.92rem; margin:12px 0 22px; max-width:26ch; }
+.map-visual{ position:relative; aspect-ratio:16/9; min-height:260px; }
+.map-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.trust-strip{
+  display:grid; grid-template-columns:repeat(4,1fr);
+  margin:0 auto 64px; max-width:var(--wrap); padding:28px 24px;
+  background:var(--cream); border:1px solid var(--sand-dark); border-radius:var(--radius-md);
+}
+.trust-item{ display:flex; align-items:center; gap:14px; padding:0 18px; border-left:1px dashed var(--sand-dark); }
+.trust-item:first-child{ border-left:none; }
+.trust-item .ticon-img{ flex:none; }
+.trust-item h5{ font-size:.92rem; font-weight:700; }
+.trust-item p{ font-size:.8rem; color:var(--brown); }
+
+/* =========================================================
+   Our Story page
+========================================================= */
+.values-strip{
+  padding-block:44px;
+  background:var(--cream-deep);
+  border-block:1px solid var(--sand-dark);
+}
+.values-strip .wrap{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+/* Value cards (Mission / Promise / People / Planet). Each carries
+   .fx-card in the markup, so it gets the cursor-tracked glow + spinning
+   ring defined above under "Interactive card hover effects". Fixed to
+   render as true SQUARE cards via aspect-ratio, with icon + text
+   centered inside. */
+.value-block{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  aspect-ratio:1 / 1;
+  padding:24px;
+  background:var(--cream);
+  border:1px solid var(--sand-dark);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:transform .28s ease, box-shadow .28s ease;
+}
+.value-block:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow-card);
+}
+/* keep icon + text above the fx-card glow (z-index:0) and below its
+   spinning ring (z-index:3) */
+.value-block .value-icon-wrap,
+.value-block h4,
+.value-block p{ position:relative; z-index:1; }
+
+.value-icon-wrap{
+  width:64px; height:64px;
+  border-radius:50%;
+  background:var(--cream-deep);
+  border:1px solid var(--sand-dark);
+  display:grid; place-items:center;
+  margin-bottom:14px;
+  flex-shrink:0;
+  overflow:hidden;              /* clips the image to the circle */
+  transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+.value-icon-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;             /* fills the circle instead of shrinking to fit */
+}
+
+.value-block:hover .value-icon-wrap{
+  transform:scale(1.08) rotate(-4deg);
+  border-color:var(--terracotta);
+  box-shadow:
+    0 0 0 6px rgba(181,74,38,.12),
+    0 0 22px -2px rgba(201,150,62,.7);
+}
+
+.value-block h4{ font-size:1rem; font-weight:700; margin-bottom:6px; }
+.value-block p{ font-size:.85rem; color:var(--brown); line-height:1.4; }
+
+.journey{ padding-block:76px; }
+.journey .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+.journey-photo{ position:relative; aspect-ratio:4/5; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-card); }
+.journey-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.photo-caption{
+  position:absolute; left:0; right:0; bottom:0;
+  background:linear-gradient(0deg, rgba(20,15,8,.75), transparent);
+  color:var(--cream); padding:24px 20px 16px; font-size:.82rem;
+}
+.photo-caption strong{ display:block; font-size:1rem; margin-bottom:2px; }
+.journey-text h3{ font-size:2rem; font-weight:600; margin-bottom:10px; }
+.rule-motif{ display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+.rule-motif .line{ width:44px; height:1px; background:var(--terracotta); }
+.rule-motif .dot{ color:var(--terracotta); }
+.journey-text > p{ color:var(--brown); margin-bottom:30px; max-width:44ch; }
+.timeline li{ display:flex; align-items:flex-start; gap:16px; padding-bottom:26px; position:relative; }
+.timeline .t-dot-img{ margin-top:2px; }
+.timeline li:not(:last-child)::before{
+  content:""; position:absolute; left:9px; top:26px; bottom:0; width:1px; background:var(--sand-dark);
+}
+.timeline h5{ color:var(--terracotta-dk); font-size:1.02rem; font-weight:700; margin-bottom:4px; }
+.timeline p{ color:var(--brown); font-size:.92rem; max-width:40ch; }
+
+.impact-wrap{ padding:0 24px 76px; max-width:var(--wrap); margin-inline:auto; }
+.impact{
+  background:var(--cream-deep); border:1px solid var(--sand-dark); border-radius:var(--radius-md);
+  padding:40px; display:grid; grid-template-columns:1.1fr repeat(4,1fr); align-items:center; gap:26px;
+}
+.impact-intro h4{ font-size:1.4rem; font-weight:600; margin-bottom:8px; }
+.impact-intro p{ color:var(--brown); font-size:.92rem; max-width:22ch; }
+.stat{ display:flex; align-items:center; gap:14px; }
+.stat-icon{
+  flex:none; width:56px; height:56px; border-radius:50%; background:var(--cream);
+  border:1px solid var(--sand-dark); display:grid; place-items:center;
+  overflow:hidden;
+  
+
+}
+.stat-icon img{
+  width:100%;
+  height:100%;
+  object-fit:cover;             /* fill the full circle like Mission/Promise */
+}
+
+@media (max-width:1024px){
+  .contact-grid{ grid-template-columns:1fr; }
+  .map-card{ grid-template-columns:1fr; }
+  .trust-strip{ grid-template-columns:1fr 1fr; }
+  .values-strip .wrap{ grid-template-columns:1fr 1fr; }
+  .journey .wrap{ grid-template-columns:1fr; }
+  .impact{ grid-template-columns:1fr 1fr; row-gap:24px; }
+  .page-hero-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:620px){
+  .form-row{ grid-template-columns:1fr; }
+  .trust-strip{ grid-template-columns:1fr; }
+  .values-strip .wrap{ grid-template-columns:1fr; }
+  .impact{ grid-template-columns:1fr; }
+}
+
+/* =========================================================
    Toast
 ========================================================= */
 .toast{
@@ -455,6 +756,7 @@ ul{ list-style:none; margin:0; padding:0; }
 
 @media (max-width: 620px){
   .category-grid{ grid-template-columns:repeat(2,1fr); }
+  .category-branch{ display:none; }
   .value-grid{ grid-template-columns:1fr; }
   .service-grid{ grid-template-columns:1fr; }
   .footer-grid{ grid-template-columns:1fr; text-align:center; }

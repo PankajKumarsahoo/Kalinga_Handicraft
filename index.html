@@ -9,43 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<style>
-  /* ============ Added: branch decor + wooden-art 6-col grid tweaks ============
-     These can be moved into styles.css later — left here inline so they work
-     immediately without touching your existing stylesheet. */
-
-  .categories { position: relative; overflow: hidden; }
-
-  .category-branch {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: clamp(60px, 8vw, 140px);
-    object-fit: contain;
-    object-position: top center;
-    pointer-events: none;
-    opacity: 0.9;
-    z-index: 0;
-  }
-  .category-branch-left  { left: 0; }
-  .category-branch-right { right: 0; transform: scaleX(-1); }
-
-  .categories .wrap { position: relative; z-index: 1; }
-
-  /* 6 categories now instead of 5 */
-  .category-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) {
-    .category-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  @media (max-width: 560px) {
-    .category-grid { grid-template-columns: repeat(2, 1fr); }
-    .category-branch { display: none; } /* keep mobile clean */
-  }
-</style>
 </head>
 <body>
 
@@ -60,7 +23,7 @@
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="siteHeader">
   <div class="wrap header-row">
-    <a href="#" class="brand">
+    <a href="index.html" class="brand">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 64 64"><use href="#motif-sun"></use></svg>
       </span>
@@ -71,12 +34,13 @@
     </a>
 
     <nav class="main-nav" id="mainNav" aria-label="Primary">
-      <a href="#" class="active">Home</a>
-      <a href="#categories">Shop</a>
-      <a href="#story">Artisans</a>
-      <a href="#story">Our Story</a>
-      <a href="#footer">Blog</a>
-      <a href="#footer">Contact</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="crafts.html">Crafts</a>
+      <a href="our-art.html">Our Art</a>
+      <a href="our-story.html">Our Story</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
     <div class="header-actions">
@@ -193,67 +157,67 @@
       load and overwriting it. Share script.js and I can remove that so
       this static markup (with real photos) is what actually renders.
 
-      Add or remove <div class="category-card"> blocks to match your real
+      Add or remove <div class="category-card fx-card"> blocks to match your real
       categories — just keep each image filename matching what you upload.
     -->
     <div class="category-grid" id="categoryGrid">
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/folk-paintings.jpg" alt="Folk Paintings" loading="lazy">
         <h3>Folk Paintings</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/handmade-decor.jpg" alt="Handmade Decor" loading="lazy">
         <h3>Handmade Decor</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/textiles.jpg" alt="Textiles" loading="lazy">
         <h3>Textiles</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/pottery-ceramics.jpg" alt="Pottery & Ceramics" loading="lazy">
         <h3>Pottery &amp; Ceramics</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/jewellery.jpg" alt="Jewellery" loading="lazy">
         <h3>Jewellery</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/wooden-art.jpg" alt="Wooden Art" loading="lazy">
         <h3>Wooden Art</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/wall-art.jpg" alt="Wall Art" loading="lazy">
         <h3>Wall Art</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/Straw Crafts.jpg" alt="Straw Crafts" loading="lazy">
         <h3>Straw Crafts</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/jute.jpg" alt="Jute Products & Bags" loading="lazy">
         <h3>Jute Products & Bags</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/palm-leaf-crafts.jpg" alt="Palm Leaf Crafts" loading="lazy">
         <h3>Palm Leaf Crafts</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/Bamboo & Cane Crafts  .jpg" alt="Bamboo & Cane Crafts" loading="lazy">
         <h3>Bamboo & Cane Crafts</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/Gift Items.jpg" alt="Gift Items" loading="lazy">
         <h3>Gift Items</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/Mementos Awards.jpg" alt="Mementos & Awards" loading="lazy">
         <h3>Mementos & Awards</h3>
       </a>
-      <a href="#" class="category-card">
-        <img src="images/Home Décor.jpg" alt="Home Décor" loading="lazy">
+      <a href="#" class="category-card fx-card">
+        <img src="images/home-decor.jpg" alt="Home Décor" loading="lazy">
         <h3>Home Décor</h3>
       </a>
-      <a href="#" class="category-card">
+      <a href="#" class="category-card fx-card">
         <img src="images/Custom Products.jpg" alt="Custom Products" loading="lazy">
         <h3>Custom Products</h3>
       </a>
@@ -261,7 +225,7 @@
   </div>
 </section>
 
-<!-- ============ STORY ============ -->
+<!-- ============ STORY (homepage teaser — links to the full Our Story page) ============ -->
 <section class="story" id="story">
   <div class="wrap story-grid">
     <!--
@@ -277,7 +241,7 @@
       <p class="eyebrow-line"><span>Our Story</span></p>
       <h2>Bridging Tradition<br><em>and Today</em></h2>
       <p>Kalinga Handicraft is a celebration of India's rich artistic heritage. We bring you authentic, handcrafted creations while supporting the artisans who keep these traditions alive — one pot, one weave, one carving at a time.</p>
-      <a href="#footer" class="btn btn-outline">
+      <a href="our-story.html" class="btn btn-outline">
         Know More About Us
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -309,7 +273,7 @@
 <footer class="site-footer" id="footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <a href="#" class="brand">
+      <a href="index.html" class="brand">
         <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#motif-sun"></use></svg></span>
         <span class="brand-text"><strong>Kalinga Handicraft</strong><em>Handcrafted with Heart</em></span>
       </a>
@@ -318,8 +282,8 @@
     <nav class="footer-col" aria-label="Quick links">
       <h5>Quick Links</h5>
       <a href="#categories">Shop</a>
-      <a href="#story">Artisans</a>
-      <a href="#story">Our Story</a>
+      <a href="our-story.html">Artisans</a>
+      <a href="our-story.html">Our Story</a>
       <a href="#">Blog</a>
       <a href="#">Contact</a>
     </nav>

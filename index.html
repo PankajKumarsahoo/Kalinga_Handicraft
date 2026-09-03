@@ -70,35 +70,60 @@
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <svg class="hero-corner" viewBox="0 0 120 120" aria-hidden="true"><use href="#motif-sun"></use></svg>
+<!-- ============ HERO / AUTOMATIC BANNER SLIDER ============ -->
+<section class="hero-banner" id="home">
 
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="hero-kicker">A tribute to Indian craft</p>
-      <h1>Handcrafted<br>with <span>Heritage</span></h1>
-      <div class="hero-rule" aria-hidden="true">
-        <svg viewBox="0 0 200 14"><use href="#motif-divider"></use></svg>
-      </div>
-      <p class="hero-desc">Discover the beauty of hand-crafted art by skilled artisans. Every piece carries a story of tradition, culture and quiet devotion.</p>
-      <a href="#categories" class="btn btn-primary">
+  <div class="hero-slider">
+
+    <!-- Banner 1 -->
+    <div class="hero-slide active">
+      <img src="images/banner-1.jpg" alt="Kalinga Handicraft">
+
+      <a href="#categories" class="hero-collection-btn">
         Explore Collection
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <span>→</span>
       </a>
     </div>
 
-    <!--
-      HOME PAGE / HERO IMAGE
-      Save your image as: images/home-hero.jpg
-      (or update the src below to match whatever filename you use)
-    -->
-    <div class="hero-art">
-      <img src="images/home-hero.jpg" alt="Handcrafted Indian art and artisans" class="hero-illustration" loading="eager">
+    <!-- Banner 2 -->
+    <div class="hero-slide">
+      <img src="images/banner-2.jpg" alt="Kalinga Handicraft">
+
+      <a href="#categories" class="hero-collection-btn">
+        Explore Collection
+        <span>→</span>
+      </a>
     </div>
+
+    <!-- Banner 3 -->
+    <div class="hero-slide">
+      <img src="images/banner-3.jpg" alt="Kalinga Handicraft">
+
+      <a href="#categories" class="hero-collection-btn">
+        Explore Collection
+        <span>→</span>
+      </a>
+    </div>
+
   </div>
 
-  <img src="images/hero-border.png" alt="" class="hero-border" aria-hidden="true">
+  <!-- Previous -->
+  <button class="hero-arrow hero-prev" type="button">
+    &#10094;
+  </button>
+
+  <!-- Next -->
+  <button class="hero-arrow hero-next" type="button">
+    &#10095;
+  </button>
+
+  <!-- Dots -->
+  <div class="hero-dots">
+    <button class="hero-dot active" type="button"></button>
+    <button class="hero-dot" type="button"></button>
+    <button class="hero-dot" type="button"></button>
+  </div>
+
 </section>
 
 <!-- ============ VALUE STRIP ============ -->

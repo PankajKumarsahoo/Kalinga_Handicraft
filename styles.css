@@ -618,6 +618,37 @@ ul{ list-style:none; margin:0; padding:0; }
   transition:background .18s ease, border-color .18s ease;
 }
 .socials a:hover{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
+.socials svg{ width:18px; height:18px; }
+.socials-row svg{ width:18px; height:18px; }
+
+/* Shop / Art / Crafts catalog */
+.filter-bar{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:0 0 36px; }
+.filter-bar .chip{
+  padding:8px 18px; border-radius:999px; border:1.5px solid var(--sand-dark); background:var(--cream-deep);
+  color:var(--ink); font:inherit; font-size:.9rem; cursor:pointer; transition:background .18s ease,color .18s ease,border-color .18s ease;
+}
+.filter-bar .chip:hover{ border-color:var(--gold); }
+.filter-bar .chip.active{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
+.product-card h3{ margin-bottom:4px; }
+.product-price{ color:var(--terracotta-dk,var(--terracotta)); font-weight:700; margin-bottom:12px; }
+.product-add{ width:100%; justify-content:center; padding:10px 16px; font-size:.88rem; }
+.product-empty{ grid-column:1/-1; text-align:center; color:var(--brown); padding:40px 0; }
+
+/* Admin panel */
+.admin-wrap{ max-width:960px; margin:0 auto; padding:60px 20px 100px; }
+.admin-gate{ max-width:380px; margin:80px auto; text-align:center; }
+.admin-gate input{ width:100%; padding:12px 14px; margin:16px 0; border-radius:var(--radius-sm); border:1.5px solid var(--sand-dark); font:inherit; }
+.admin-form{ display:grid; grid-template-columns:1fr 1fr; gap:14px; background:var(--cream-deep); padding:24px; border-radius:var(--radius-md); margin-bottom:36px; }
+.admin-form label{ display:flex; flex-direction:column; gap:6px; font-size:.85rem; font-weight:600; }
+.admin-form input, .admin-form select{ padding:10px 12px; border-radius:var(--radius-sm); border:1.5px solid var(--sand-dark); font:inherit; }
+.admin-form .full{ grid-column:1/-1; }
+.admin-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
+.admin-table th, .admin-table td{ padding:10px 8px; border-bottom:1px solid var(--sand-dark); text-align:left; vertical-align:middle; }
+.admin-table img{ width:44px; height:44px; object-fit:cover; border-radius:6px; }
+.admin-table button{ padding:6px 12px; border-radius:6px; border:none; cursor:pointer; font:inherit; font-size:.82rem; margin-right:6px; }
+.admin-table .edit-btn{ background:var(--gold); color:var(--ink); }
+.admin-table .del-btn{ background:var(--terracotta); color:var(--cream); }
+@media (max-width:640px){ .admin-form{ grid-template-columns:1fr; } }
 
 /* Bottom-most ornamental band — maroon scalloped strip carrying the
    copyright line, matching the top/hero borders in style. */

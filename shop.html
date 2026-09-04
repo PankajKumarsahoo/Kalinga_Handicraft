@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalinga Handicraft — Handcrafted with Heart</title>
-<meta name="description" content="Discover authentic handcrafted art, textiles, pottery and jewellery made by skilled Indian artisans.">
+<title>Shop — Kalinga Handicraft | Handcrafted with Heart</title>
+<meta name="description" content="Browse the complete Kalinga Handicraft collection — art and craft, handmade by Indian artisans.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -34,8 +34,8 @@
     </a>
 
     <nav class="main-nav" id="mainNav" aria-label="Primary">
-      <a href="index.html" class="active">Home</a>
-      <a href="shop.html">Shop</a>
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
       <a href="crafts.html">Crafts</a>
       <a href="our-art.html">Our Art</a>
       <a href="our-story.html">Our Story</a>
@@ -60,6 +60,8 @@
     </div>
   </div>
 
+  </div>
+
   <div class="search-panel" id="searchPanel">
     <div class="wrap">
       <form id="searchForm">
@@ -70,228 +72,22 @@
   </div>
 </header>
 
-<!-- ============ HERO / AUTOMATIC BANNER SLIDER ============ -->
-<section class="hero-banner" id="home">
 
-  <div class="hero-slider">
-
-    <!-- Banner 1 -->
-    <div class="hero-slide active">
-      <img src="images/banner-1.jpg" alt="Kalinga Handicraft">
-
-      <a href="#categories" class="hero-collection-btn">
-        Explore Collection
-        <span>→</span>
-      </a>
-    </div>
-
-    <!-- Banner 2 -->
-    <div class="hero-slide">
-      <img src="images/banner-2.jpg" alt="Kalinga Handicraft">
-
-      <a href="#categories" class="hero-collection-btn">
-        Explore Collection
-        <span>→</span>
-      </a>
-    </div>
-
-    <!-- Banner 3 -->
-    <div class="hero-slide">
-      <img src="images/banner-3.jpg" alt="Kalinga Handicraft">
-
-      <a href="#categories" class="hero-collection-btn">
-        Explore Collection
-        <span>→</span>
-      </a>
-    </div>
-
-  </div>
-
-  <!-- Previous -->
-  <button class="hero-arrow hero-prev" type="button">
-    &#10094;
-  </button>
-
-  <!-- Next -->
-  <button class="hero-arrow hero-next" type="button">
-    &#10095;
-  </button>
-
-  <!-- Dots -->
-  <div class="hero-dots">
-    <button class="hero-dot active" type="button"></button>
-    <button class="hero-dot" type="button"></button>
-    <button class="hero-dot" type="button"></button>
-  </div>
-
-</section>
-
-<!-- ============ VALUE STRIP ============ -->
-<section class="value-strip">
-  <div class="wrap value-grid">
-    <div class="value-item">
-      <div><h3>Handcrafted</h3><p>Made with love by skilled hands</p></div>
-    </div>
-    <div class="value-item">
-      <div><h3>Sustainable</h3><p>Eco-friendly materials, always</p></div>
-    </div>
-    <div class="value-item">
-      <div><h3>Support Artisans</h3><p>Empowering local communities</p></div>
-    </div>
-    <div class="value-item">
-      <div><h3>Authentic</h3><p>100% original, traditional craft</p></div>
+<section class="page-hero">
+  <div class="wrap page-hero-grid" style="grid-template-columns:1fr;text-align:center;">
+    <div class="page-hero-copy" style="margin:0 auto;">
+      <div class="page-hero-kicker" style="justify-content:center;"><span class="rule" aria-hidden="true"></span><span>Shop</span></div>
+      <h1>The Full <em>Collection</em></h1>
+      <h2 style="margin-inline:auto;">Every handcrafted piece, all in one place.</h2>
     </div>
   </div>
 </section>
 
-<!-- ============ CATEGORIES ============ -->
-<section class="categories" id="categories">
-
-  <!--
-    SIDE BRANCH DECORATIONS
-    Save these two images as:
-      images/left-branch-tree.jpg
-      images/right-branch-tree.jpg
-    (a tall, narrow vine/floral illustration works best — see the reference
-    design). The right one is auto-mirrored with CSS (transform: scaleX(-1))
-    so a single artwork can be reused on both sides if you prefer.
-  -->
-  <img src="images/left-branch-tree.jpg" alt="" class="category-branch category-branch-left" aria-hidden="true">
-
+<section class="categories">
   <div class="wrap">
-    <h2 class="section-title">
-      <svg viewBox="0 0 40 14" class="title-flourish" aria-hidden="true"><use href="#motif-flourish"></use></svg>
-      Shop by Category
-      <svg viewBox="0 0 40 14" class="title-flourish flip" aria-hidden="true"><use href="#motif-flourish"></use></svg>
-    </h2>
-
-    <!--
-      CATEGORY CARD IMAGES
-      Save each image using the filename shown in each card's src
-      (all inside an "images" folder):
-
-        images/folk-paintings.jpg
-        images/handmade-decor.jpg
-        images/textiles.jpg
-        images/pottery-ceramics.jpg
-        images/jewellery.jpg
-        images/wooden-art.jpg
-
-      NOTE: if your live site still shows icon shapes instead of these
-      photos, it's because script.js is likely re-generating this grid on
-      load and overwriting it. Share script.js and I can remove that so
-      this static markup (with real photos) is what actually renders.
-
-      Add or remove <div class="category-card fx-card"> blocks to match your real
-      categories — just keep each image filename matching what you upload.
-    -->
-    <div class="category-grid" id="categoryGrid">
-      <a href="#" class="category-card fx-card">
-        <img src="images/folk-paintings.jpg" alt="Folk Paintings" loading="lazy">
-        <h3>Folk Paintings</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/handmade-decor.jpg" alt="Handmade Decor" loading="lazy">
-        <h3>Handmade Decor</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/textiles.jpg" alt="Textiles" loading="lazy">
-        <h3>Textiles</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/pottery-ceramics.jpg" alt="Pottery & Ceramics" loading="lazy">
-        <h3>Pottery &amp; Ceramics</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/jewellery.jpg" alt="Jewellery" loading="lazy">
-        <h3>Jewellery</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/wooden-art.jpg" alt="Wooden Art" loading="lazy">
-        <h3>Wooden Art</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/wall-art.jpg" alt="Wall Art" loading="lazy">
-        <h3>Wall Art</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/Straw Crafts.jpg" alt="Straw Crafts" loading="lazy">
-        <h3>Straw Crafts</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/jute.jpg" alt="Jute Products & Bags" loading="lazy">
-        <h3>Jute Products & Bags</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/palm-leaf-crafts.jpg" alt="Palm Leaf Crafts" loading="lazy">
-        <h3>Palm Leaf Crafts</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/Bamboo & Cane Crafts  .jpg" alt="Bamboo & Cane Crafts" loading="lazy">
-        <h3>Bamboo & Cane Crafts</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/Gift Items.jpg" alt="Gift Items" loading="lazy">
-        <h3>Gift Items</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/Mementos Awards.jpg" alt="Mementos & Awards" loading="lazy">
-        <h3>Mementos & Awards</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/home-decor.jpg" alt="Home Décor" loading="lazy">
-        <h3>Home Décor</h3>
-      </a>
-      <a href="#" class="category-card fx-card">
-        <img src="images/Custom Products.jpg" alt="Custom Products" loading="lazy">
-        <h3>Custom Products</h3>
-      </a>
-    </div>
+    <div class="filter-bar" id="filterBar"></div>
+    <div class="category-grid" id="productGrid" data-type="all"></div>
   </div>
-</section>
-
-<!-- ============ STORY (homepage teaser — links to the full Our Story page) ============ -->
-<section class="story" id="story">
-  <div class="wrap story-grid">
-    <!--
-      OUR STORY IMAGE
-      Save your image as: images/our-story.jpg
-      (or update the src below to match whatever filename you use)
-    -->
-    <div class="story-art">
-      <img src="images/our-story.jpg" alt="Artisans shaping pottery by hand" class="story-illustration" loading="lazy">
-    </div>
-
-    <div class="story-copy">
-      <p class="eyebrow-line"><span>Our Story</span></p>
-      <h2>Bridging Tradition<br><em>and Today</em></h2>
-      <p>Kalinga Handicraft is a celebration of India's rich artistic heritage. We bring you authentic, handcrafted creations while supporting the artisans who keep these traditions alive — one pot, one weave, one carving at a time.</p>
-      <a href="our-story.html" class="btn btn-outline">
-        Know More About Us
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SERVICE STRIP ============ -->
-<section class="service-strip">
-  <img src="images/quicklinks-border-top.png" alt="" class="service-strip-border service-strip-border--top" aria-hidden="true">
-  <div class="wrap service-grid">
-    <div class="service-item">
-      <div><h4>Free Shipping</h4><p>On orders above ₹999</p></div>
-    </div>
-    <div class="service-item">
-      <div><h4>Easy Returns</h4><p>7 day return policy</p></div>
-    </div>
-    <div class="service-item">
-      <div><h4>Secure Payments</h4><p>100% secure checkout</p></div>
-    </div>
-    <div class="service-item">
-      <div><h4>Customer Support</h4><p>We're here to help</p></div>
-    </div>
-  </div>
-  <img src="images/quicklinks-border-bottom.png" alt="" class="service-strip-border service-strip-border--bottom" aria-hidden="true">
 </section>
 
 <!-- ============ NEWSLETTER + FOOTER ============ -->
@@ -399,5 +195,7 @@
 </svg>
 
 <script src="script.js"></script>
+<script src="products.js"></script>
+<script src="catalog.js"></script>
 </body>
 </html>

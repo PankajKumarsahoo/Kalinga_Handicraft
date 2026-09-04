@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Kalinga Handicraft</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="deco-strip deco-strip--top" aria-hidden="true"></div>
+<div class="topbar"><p>Kalinga Handicraft — Admin Panel</p></div>
+
+<div class="admin-wrap">
+
+  <div class="admin-gate" id="gate">
+    <h2>Admin Login</h2>
+    <p>Enter the admin password to manage products.</p>
+    <input type="password" id="pw" placeholder="Password">
+    <button class="btn btn-primary" id="loginBtn" style="width:100%;justify-content:center;">Login</button>
+    <p id="loginMsg" style="color:var(--terracotta);margin-top:10px;"></p>
+    <p style="margin-top:24px;"><a href="index.html">&larr; Back to site</a></p>
+  </div>
+
+  <div id="panel" style="display:none;">
+    <h1 style="margin-bottom:6px;">Manage Products</h1>
+    <p style="color:var(--brown);margin-bottom:24px;">Products added here appear instantly on Shop, Our Art (type: Art) and Crafts (type: Craft). Data is saved in this browser.</p>
+
+    <form class="admin-form" id="productForm">
+      <input type="hidden" id="editId">
+      <label class="full">Product Name
+        <input type="text" id="fName" required>
+      </label>
+      <label>Price (₹)
+        <input type="number" id="fPrice" min="0" required>
+      </label>
+      <label>Type
+        <select id="fType" required>
+          <option value="art">Art</option>
+          <option value="craft">Craft</option>
+        </select>
+      </label>
+      <label class="full">Category
+        <input type="text" id="fCategory" list="catList" placeholder="e.g. Folk Paintings" required>
+        <datalist id="catList"></datalist>
+      </label>
+      <label class="full">Image path (inside your images/ folder)
+        <input type="text" id="fImage" placeholder="images/your-photo.jpg" required>
+      </label>
+      <div class="full" style="display:flex;gap:10px;">
+        <button type="submit" class="btn btn-primary" id="saveBtn">Add Product</button>
+        <button type="button" class="btn btn-outline" id="cancelEdit" style="display:none;">Cancel Edit</button>
+      </div>
+    </form>
+
+    <table class="admin-table">
+      <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Type</th><th>Price</th><th></th></tr></thead>
+      <tbody id="productRows"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="products.js"></script>
+<script>
+(() => {
+  const PASSWORD = 'kalinga2026'; // change this before going live
+  const gate = document.getElementById('gate');
+  const panel = document.getElementById('panel');
+
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(window._t); window._t = setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    if (document.getElementById('pw').value === PASSWORD) {
+      gate.style.display = 'none';
+      panel.style.display = 'block';
+      renderCategories();
+      renderTable();
+    } else {
+      document.getElementById('loginMsg').textContent = 'Incorrect password.';
+    }
+  });
+
+  function renderCategories(){
+    const list = document.getElementById('catList');
+    list.innerHTML = window.KHStore.CATEGORIES.map(c => `<option value="${c}">`).join('');
+  }
+
+  function renderTable(){
+    const rows = document.getElementById('productRows');
+    const products = window.KHStore.getProducts();
+    rows.innerHTML = products.map(p => `
+      <tr>
+        <td><img src="${p.image}" alt=""></td>
+        <td>${p.name}</td>
+        <td>${p.category}</td>
+        <td>${p.type}</td>
+        <td>₹${Number(p.price).toLocaleString('en-IN')}</td>
+        <td>
+          <button class="edit-btn" data-id="${p.id}">Edit</button>
+          <button class="del-btn" data-id="${p.id}">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+
+    rows.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', () => startEdit(b.dataset.id)));
+    rows.querySelectorAll('.del-btn').forEach(b => b.addEventListener('click', () => {
+      if (confirm('Delete this product?')) {
+        window.KHStore.deleteProduct(b.dataset.id);
+        renderTable();
+        toast('Product deleted');
+      }
+    }));
+  }
+
+  function startEdit(id){
+    const p = window.KHStore.getProducts().find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('editId').value = p.id;
+    document.getElementById('fName').value = p.name;
+    document.getElementById('fPrice').value = p.price;
+    document.getElementById('fType').value = p.type;
+    document.getElementById('fCategory').value = p.category;
+    document.getElementById('fImage').value = p.image;
+    document.getElementById('saveBtn').textContent = 'Save Changes';
+    document.getElementById('cancelEdit').style.display = 'inline-flex';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function resetForm(){
+    document.getElementById('productForm').reset();
+    document.getElementById('editId').value = '';
+    document.getElementById('saveBtn').textContent = 'Add Product';
+    document.getElementById('cancelEdit').style.display = 'none';
+  }
+
+  document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+  document.getElementById('productForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = document.getElementById('editId').value;
+    const data = {
+      name: document.getElementById('fName').value.trim(),
+      price: Number(document.getElementById('fPrice').value),
+      type: document.getElementById('fType').value,
+      category: document.getElementById('fCategory').value.trim(),
+      image: document.getElementById('fImage').value.trim()
+    };
+    if (id) {
+      window.KHStore.updateProduct(id, data);
+      toast('Product updated');
+    } else {
+      window.KHStore.addProduct(data);
+      toast('Product added');
+    }
+    resetForm();
+    renderCategories();
+    renderTable();
+  });
+})();
+</script>
+</body>
+</html>

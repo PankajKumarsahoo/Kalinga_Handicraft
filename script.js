@@ -813,3 +813,52 @@
     });
 
 })();
+
+(() => {
+  'use strict';
+  const grid = document.getElementById('blogGrid');
+  if (!grid) return;
+
+  const POSTS = [
+    { title: 'The Art of Pattachitra: A Living Tradition', category: 'Folk Art', date: 'Aug 12, 2026', image: 'images/folk-paintings.jpg',
+      excerpt: 'How Odisha\'s scroll painters turn natural pigments and palm leaf into centuries-old stories.' },
+    { title: 'Behind the Wheel: Blue Pottery Explained', category: 'Pottery', date: 'Jul 28, 2026', image: 'images/pottery-ceramics.jpg',
+      excerpt: 'A look at the Jaipur technique that gives blue pottery its signature glaze and colour.' },
+    { title: 'Weaving Ikat: Thread, Dye and Patience', category: 'Textiles', date: 'Jul 09, 2026', image: 'images/textiles.jpg',
+      excerpt: 'Every Ikat textile begins with resist-dyeing the yarn before a single thread is woven.' },
+    { title: 'Silver Stories: Tribal Jewellery Craft', category: 'Jewellery', date: 'Jun 22, 2026', image: 'images/jewellery.jpg',
+      excerpt: 'Meet the artisans keeping traditional tribal silverwork techniques alive today.' },
+    { title: 'From Bamboo to Basket', category: 'Bamboo & Cane', date: 'Jun 03, 2026', image: 'images/Bamboo & Cane Crafts  .jpg',
+      excerpt: 'A step-by-step look at how raw bamboo becomes a finished, market-ready basket.' },
+    { title: 'Why Handmade Matters', category: 'Sustainability', date: 'May 18, 2026', image: 'images/home-decor.jpg',
+      excerpt: 'Choosing handcrafted goods supports artisan livelihoods and reduces environmental impact.' }
+  ];
+
+  grid.innerHTML = POSTS.map(p => `
+    <article class="blog-card fx-card">
+      <img src="${p.image}" alt="${p.title}" loading="lazy">
+      <div class="blog-card-body">
+        <span class="blog-meta">${p.category} &middot; ${p.date}</span>
+        <h3>${p.title}</h3>
+        <p>${p.excerpt}</p>
+        <a href="#" class="blog-read" data-title="${p.title}">
+          Read Story
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+  `).join('');
+
+  grid.addEventListener('click', (e) => {
+    const link = e.target.closest('.blog-read');
+    if (!link) return;
+    e.preventDefault();
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.textContent = `Full post coming soon: "${link.dataset.title}"`;
+      toast.classList.add('show');
+      clearTimeout(window._toastT);
+      window._toastT = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+  });
+})();

@@ -37,7 +37,7 @@
    Reset & base
 ========================================================= */
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; max-width:100%; overflow-x:hidden; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
@@ -49,6 +49,8 @@ body{
   background:var(--cream);
   -webkit-font-smoothing:antialiased;
   line-height:1.55;
+  max-width:100%;
+  overflow-x:hidden;
 }
 h1,h2,h3,h4,h5{ font-family:var(--font-display); margin:0; color:var(--charcoal); }
 p{ margin:0; }
@@ -557,10 +559,6 @@ ul{ list-style:none; margin:0; padding:0; }
   padding-block:38px;
   color:var(--cream);
 }
-/* Real carved-wood border artwork framing the strip's top and bottom
-   edges, sitting flush above the Quick Links column below it. Fixed
-   height + object-fit:cover keeps it a slim trim on wide screens.
-   >>> Change the "height" below to make the trim thicker/thinner. <<< */
 .service-strip-border{
   display:block;
   position:absolute;
@@ -578,20 +576,67 @@ ul{ list-style:none; margin:0; padding:0; }
   bottom:0;
 }
 
-.service-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
-.service-item{ display:flex; align-items:center; gap:14px; }
-.service-item svg{ width:30px; height:30px; flex-shrink:0; fill:none; stroke:var(--gold); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.service-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.service-item{
+  display:flex; align-items:center; gap:14px;
+  padding:18px 16px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius-md);
+  transition:transform .25s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.service-item:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.1);
+  border-color:var(--gold);
+  box-shadow:0 16px 30px -16px rgba(0,0,0,.55);
+}
+.service-item svg{ width:30px; height:30px; flex-shrink:0; fill:none; stroke:var(--gold); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; transition:transform .25s ease; }
+.service-item:hover svg{ transform:scale(1.12); }
 .service-item h4{ color:var(--cream); font-size:.96rem; font-weight:700; }
 .service-item p{ font-size:.8rem; color:var(--sand-dark); }
 
 /* =========================================================
    Footer
 ========================================================= */
-.site-footer{ background:var(--charcoal); color:var(--sand-dark); padding-top:56px; }
-.footer-grid{
-  display:grid; grid-template-columns:1.4fr 1fr 1fr 1.5fr; gap:36px;
-  padding-bottom:44px; border-bottom:1px solid rgba(246,240,227,.12);
+.site-footer{ background:var(--charcoal); color:var(--sand-dark); }
+
+/* The peacock/mandala frame now lives on .footer-frame, which has no
+   max-width — so the border-image itself stretches edge-to-edge across
+   the full viewport, matching the full-bleed green service strip above
+   it. The actual link columns (.footer-grid) are centered inside that
+   frame at the site's normal content width, so text doesn't sprawl
+   across ultra-wide screens. Previously the border-image sat on
+   .footer-grid, which was itself capped at max-width:1200px and
+   centered — so on wide monitors the whole framed card floated in the
+   middle of the page with plain charcoal gaps on both sides instead of
+   reaching the edges like every other full-width section. */
+.footer-frame{
+  margin:0;
+  border-style:solid;
+  border-color:transparent;
+  border-width:30px 90px 48px 90px;
+  border-image-source:url("images/quicklinks-border-frame.png");
+  border-image-slice:39 430 72 430;
+  border-image-width:40px 90px 58px 90px;
+  border-image-outset:0;
+  border-image-repeat:stretch;
 }
+.footer-grid{
+  max-width:var(--wrap);
+  margin-inline:auto;
+  display:grid; grid-template-columns:1.4fr 1fr 1fr 1.5fr; gap:36px;
+  padding:40px 36px 34px;
+}
+/* Grid items default to min-width:auto, which lets a column's own
+   content (e.g. a long link like "Pottery & Ceramics") force the
+   column wider than its fr share. On narrow screens that pushed the
+   whole grid wider than the viewport; with html{overflow-x:hidden}
+   the overflow was silently clipped instead of scrolling, which is
+   what made "Quick Links" appear to vanish on mobile. min-width:0
+   lets each column shrink to its track size and wrap its text instead. */
+.footer-brand,
+.footer-col{ min-width:0; }
 .footer-brand .brand-text strong{ color:var(--cream); }
 .footer-brand p{ margin-top:14px; font-size:.88rem; max-width:30ch; }
 .footer-col h5{ color:var(--cream); font-size:.95rem; margin-bottom:16px; font-weight:700; }
@@ -620,6 +665,25 @@ ul{ list-style:none; margin:0; padding:0; }
 .socials a:hover{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
 .socials svg{ width:18px; height:18px; }
 .socials-row svg{ width:18px; height:18px; }
+
+@media (max-width:880px){
+  .footer-frame{
+    border-width:20px 60px 38px 60px;
+    border-image-width:20px 60px 38px 60px;
+  }
+  .footer-grid{
+    padding:34px 26px 28px;
+  }
+}
+@media (max-width:620px){
+  .footer-frame{
+    border-width:16px 36px 30px 36px;
+    border-image-width:16px 36px 30px 36px;
+  }
+  .footer-grid{
+    padding:30px 18px 24px;
+  }
+}
 
 /* Shop / Art / Crafts catalog */
 .filter-bar{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:0 0 36px; }
@@ -650,8 +714,6 @@ ul{ list-style:none; margin:0; padding:0; }
 .admin-table .del-btn{ background:var(--terracotta); color:var(--cream); }
 @media (max-width:640px){ .admin-form{ grid-template-columns:1fr; } }
 
-/* Bottom-most ornamental band — maroon scalloped strip carrying the
-   copyright line, matching the top/hero borders in style. */
 .footer-bottom{
   text-align:center;
   padding:26px 0;
@@ -676,11 +738,6 @@ ul{ list-style:none; margin:0; padding:0; }
   background:rgba(246,240,227,.55);
 }
 
-/* =========================================================
-   Icon images (replaces inline SVG icons on Contact / Our Story)
-   Drop a small square PNG (ideally on a transparent background,
-   around 64x64px) at each path named in the page markup.
-========================================================= */
 .icon-btn img{ width:20px; height:20px; object-fit:contain; }
 .info-icon img,
 .ticon-img,
@@ -688,9 +745,6 @@ ul{ list-style:none; margin:0; padding:0; }
 .stat-icon img{ width:22px; height:22px; object-fit:contain; }
 .t-dot-img{ width:18px; height:18px; object-fit:contain; }
 
-/* =========================================================
-   Page hero (Contact / Our Story — shared shape, own art)
-========================================================= */
 .page-hero{
   position:relative;
   background:linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
@@ -711,9 +765,6 @@ ul{ list-style:none; margin:0; padding:0; }
 .page-hero-art{ position:relative; aspect-ratio:6/5; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--sand-dark); }
 .page-hero-art img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-/* =========================================================
-   Contact page
-========================================================= */
 .contact-section{ padding-block:64px; }
 .contact-grid{
   display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start;
@@ -770,9 +821,6 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
 .trust-item h5{ font-size:.92rem; font-weight:700; }
 .trust-item p{ font-size:.8rem; color:var(--brown); }
 
-/* =========================================================
-   Our Story page
-========================================================= */
 .values-strip{
   padding-block:44px;
   background:var(--cream-deep);
@@ -784,11 +832,6 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   gap:20px;
 }
 
-/* Value cards (Mission / Promise / People / Planet). Each carries
-   .fx-card in the markup, so it gets the cursor-tracked glow + spinning
-   ring defined above under "Interactive card hover effects". Fixed to
-   render as true SQUARE cards via aspect-ratio, with icon + text
-   centered inside. */
 .value-block{
   position:relative;
   display:flex;
@@ -808,8 +851,6 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   transform:translateY(-6px);
   box-shadow:var(--shadow-card);
 }
-/* keep icon + text above the fx-card glow (z-index:0) and below its
-   spinning ring (z-index:3) */
 .value-block .value-icon-wrap,
 .value-block h4,
 .value-block p{ position:relative; z-index:1; }
@@ -822,13 +863,13 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   display:grid; place-items:center;
   margin-bottom:14px;
   flex-shrink:0;
-  overflow:hidden;              /* clips the image to the circle */
+  overflow:hidden;
   transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
 }
 .value-icon-wrap img{
   width:100%;
   height:100%;
-  object-fit:cover;             /* fills the circle instead of shrinking to fit */
+  object-fit:cover;
 }
 
 .value-block:hover .value-icon-wrap{
@@ -877,13 +918,11 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   flex:none; width:56px; height:56px; border-radius:50%; background:var(--cream);
   border:1px solid var(--sand-dark); display:grid; place-items:center;
   overflow:hidden;
-  
-
 }
 .stat-icon img{
   width:100%;
   height:100%;
-  object-fit:cover;             /* fill the full circle like Mission/Promise */
+  object-fit:cover;
 }
 
 @media (max-width:1024px){
@@ -902,9 +941,6 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   .impact{ grid-template-columns:1fr; }
 }
 
-/* =========================================================
-   Toast
-========================================================= */
 .toast{
   position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px);
   background:var(--charcoal); color:var(--cream); padding:12px 22px;
@@ -919,20 +955,22 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
 ========================================================= */
 @media (max-width: 1024px){
   .category-grid{ grid-template-columns:repeat(3,1fr); }
-  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .footer-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
 }
 
 @media (max-width: 880px){
+  .header-row{ flex-wrap:nowrap; gap:10px; }
   .main-nav{
     position:absolute; top:100%; left:0; right:0;
     background:var(--cream); border-bottom:1px solid var(--sand-dark);
     flex-direction:column; align-items:stretch; gap:0;
-    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    max-height:0; overflow-y:auto; overflow-x:hidden; transition:max-height .3s ease;
+    box-shadow:0 16px 24px -18px rgba(0,0,0,.35);
   }
-  .main-nav.open{ max-height:340px; }
+  .main-nav.open{ max-height:calc(100vh - 70px); }
   .main-nav a{ padding:16px 24px; border-top:1px solid var(--sand-dark); }
   .main-nav a::after{ display:none; }
-  .hamburger{ display:flex; }
+  .hamburger{ display:flex; flex-shrink:0; }
 
   .hero-grid{ grid-template-columns:1fr; text-align:center; }
   .hero-copy{ order:2; }
@@ -952,13 +990,28 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
   .category-branch{ display:none; }
   .value-grid{ grid-template-columns:1fr; }
   .service-grid{ grid-template-columns:1fr; }
-  .footer-grid{ grid-template-columns:1fr; text-align:center; }
+  .footer-grid{ grid-template-columns:minmax(0,1fr); gap:30px; text-align:center; }
   .footer-col a:hover{ padding-left:0; }
   .socials{ justify-content:center; }
   #newsletterForm{ max-width:340px; margin-inline:auto; }
   .header-row{ padding-block:10px; }
   .brand-text strong{ font-size:1.1rem; }
   .deco-strip--top{ height:12px; background-size:160px 12px; }
+}
+
+@media (max-width: 420px){
+  .wrap{ padding-inline:14px; }
+  .header-row{ gap:6px; padding-block:8px; }
+  .brand{ gap:8px; min-width:0; }
+  .brand-mark{ width:34px; height:34px; }
+  .brand-text{ min-width:0; }
+  .brand-text strong{ font-size:.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .brand-text em{ display:none; }
+  .header-actions{ gap:0; }
+  .icon-btn{ width:34px; height:34px; }
+  .icon-btn svg{ width:18px; height:18px; }
+  .hamburger{ width:34px; height:34px; }
+  .cart-count{ width:14px; height:14px; font-size:.58rem; }
 }
 /* =========================================================
    HOME BANNER
@@ -1251,4 +1304,184 @@ textarea.field{ resize:vertical; min-height:120px; margin-bottom:20px; }
     font-size: 18px;
   }
 
+}
+/* =========================================================
+   BLOG GRID
+========================================================= */
+.blog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.blog-card{ background:var(--cream-deep); border-radius:var(--radius-md); overflow:hidden; text-align:left; }
+.blog-card-img{ height:190px; overflow:hidden; }
+.blog-card-img img{ width:100%; height:100%; object-fit:cover; }
+.blog-card-body{ padding:20px 22px 24px; }
+.blog-card-cat{ font-size:.75rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--terracotta); }
+.blog-card-body h3{ font-family:var(--font-display); margin:8px 0 10px; font-size:1.2rem; }
+.blog-card-body p{ color:var(--brown); font-size:.92rem; line-height:1.55; margin-bottom:12px; }
+.blog-card-date{ font-size:.8rem; color:var(--sand-dark); }
+@media (max-width:900px){ .blog-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .blog-grid{ grid-template-columns:1fr; } }
+
+/* =========================================================
+   CART PAGE
+========================================================= */
+.cart-section{ padding:20px 0 90px; }
+.cart-empty{ text-align:center; padding:60px 20px; }
+.cart-empty p{ margin-bottom:18px; color:var(--brown); }
+.cart-layout{ display:grid; grid-template-columns:1fr 320px; gap:36px; align-items:start; }
+.cart-table{ width:100%; border-collapse:collapse; }
+.cart-table th{ text-align:left; padding:10px 8px; border-bottom:2px solid var(--sand-dark); font-size:.85rem; text-transform:uppercase; letter-spacing:.03em; color:var(--brown); }
+.cart-table td{ padding:14px 8px; border-bottom:1px solid var(--sand-dark); vertical-align:middle; }
+.cart-prod{ display:flex; align-items:center; gap:12px; font-weight:600; }
+.cart-prod img{ width:56px; height:56px; object-fit:cover; border-radius:8px; }
+.qty-stepper{ display:inline-flex; align-items:center; gap:10px; border:1.5px solid var(--sand-dark); border-radius:999px; padding:4px 10px; }
+.qty-btn{ background:none; border:none; font-size:1rem; cursor:pointer; color:var(--terracotta); line-height:1; }
+.cart-remove{ background:none; border:none; font-size:1.2rem; cursor:pointer; color:var(--terracotta); }
+.cart-summary{ background:var(--cream-deep); border-radius:var(--radius-md); padding:26px; }
+.cart-summary h3{ font-family:var(--font-display); margin-bottom:16px; }
+.cart-summary-row{ display:flex; justify-content:space-between; padding:8px 0; color:var(--brown); }
+.cart-summary-total{ border-top:1.5px solid var(--sand-dark); margin-top:8px; padding-top:14px; font-weight:700; color:var(--ink); font-size:1.1rem; }
+.cart-continue{ display:block; text-align:center; margin-top:14px; font-size:.9rem; color:var(--brown); }
+@media (max-width:800px){ .cart-layout{ grid-template-columns:1fr; } }
+
+/* =========================================================
+   LOGIN / REGISTER
+========================================================= */
+.auth-wrap{ max-width:440px; margin:0 auto 90px; padding:0 20px; }
+.auth-tabs{ display:flex; margin-bottom:22px; border-radius:999px; background:var(--cream-deep); padding:4px; }
+.auth-tab{ flex:1; padding:10px; border:none; background:none; border-radius:999px; cursor:pointer; font:inherit; font-weight:600; }
+.auth-tab.active{ background:var(--terracotta); color:var(--cream); }
+.auth-panel{ display:none; }
+.auth-panel.active{ display:block; }
+.field{ width:100%; padding:12px 14px; margin-bottom:14px; border-radius:var(--radius-sm); border:1.5px solid var(--sand-dark); font:inherit; }
+.auth-msg{ margin-top:12px; font-size:.9rem; min-height:1.2em; }
+.auth-note{ margin-top:8px; font-size:.78rem; color:var(--sand-dark); }
+
+/* =========================================================
+   ADMIN TABS (Products / Blog)
+========================================================= */
+.admin-tabs{ display:flex; gap:10px; margin-bottom:26px; }
+.admin-tab{ padding:10px 20px; border-radius:999px; border:1.5px solid var(--sand-dark); background:none; cursor:pointer; font:inherit; font-weight:600; }
+.admin-tab.active{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
+.admin-section{ display:none; }
+.admin-section.active{ display:block; }
+
+/* =========================================================
+   SHOP LAYOUT (category strip + sidebar filters + grid)
+========================================================= */
+.shop-section{ padding:60px 0 20px; }
+
+.category-strip{ display:grid; grid-template-columns:repeat(7,1fr); gap:16px; margin-bottom:44px; }
+.cat-circle{ background:none; border:none; cursor:pointer; font:inherit; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; padding:6px; border-radius:var(--radius-md); }
+.cat-circle-img{ width:78px; height:78px; border-radius:50%; overflow:hidden; border:2px solid transparent; display:block; }
+.cat-circle-img img{ width:100%; height:100%; object-fit:cover; }
+.cat-circle strong{ font-size:.85rem; color:var(--charcoal); }
+.cat-circle span{ font-size:.72rem; color:var(--brown); }
+.cat-circle.active .cat-circle-img{ border-color:var(--terracotta); }
+.cat-circle.active strong{ color:var(--terracotta); }
+.cat-circle:hover .cat-circle-img{ border-color:var(--gold); }
+
+.shop-layout{ display:grid; grid-template-columns:260px 1fr; gap:34px; align-items:start; }
+
+.filter-panel{ background:var(--cream-deep); border-radius:var(--radius-md); padding:22px; position:sticky; top:100px; }
+.filter-panel h3{ font-family:var(--font-display); font-size:1.15rem; margin-bottom:16px; }
+.filter-panel h3 em{ color:var(--terracotta); font-style:normal; }
+.filter-group{ margin-bottom:22px; }
+.filter-group h4{ font-size:.85rem; text-transform:uppercase; letter-spacing:.03em; color:var(--brown); margin-bottom:12px; }
+.filter-checklist{ display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; }
+.check-row{ display:flex; align-items:center; gap:8px; font-size:.9rem; cursor:pointer; }
+.check-row input{ accent-color:var(--terracotta); }
+.check-row span{ flex:1; }
+.check-row em{ font-style:normal; color:var(--sand-dark); font-size:.8rem; }
+.price-slider{ width:100%; accent-color:var(--terracotta); }
+.price-range-labels{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--brown); margin-top:6px; }
+
+.shop-toolbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; flex-wrap:wrap; gap:12px; }
+.shop-result-count{ color:var(--brown); font-size:.92rem; }
+.sort-select{ padding:9px 14px; border-radius:999px; border:1.5px solid var(--sand-dark); font:inherit; background:var(--cream); }
+
+.product-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+.product-card{ background:var(--cream-deep); border-radius:var(--radius-md); overflow:hidden; transition:transform .28s ease, box-shadow .28s ease; }
+.product-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-card); }
+.product-card-img{ position:relative; aspect-ratio:1; overflow:hidden; }
+.product-card-img img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.product-card:hover .product-card-img img{ transform:scale(1.06); }
+.wish-btn{ position:absolute; top:10px; right:10px; width:34px; height:34px; border-radius:50%; background:var(--cream); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--brown); }
+.wish-btn svg{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; }
+.wish-btn.active{ color:var(--terracotta); }
+.wish-btn.active svg{ fill:var(--terracotta); }
+.product-card-body{ padding:16px 18px 20px; }
+.product-card-body h3{ font-family:var(--font-display); font-size:1.02rem; margin-bottom:4px; }
+.product-card-sub{ display:block; font-size:.78rem; color:var(--brown); margin-bottom:10px; }
+.product-card-row{ display:flex; align-items:center; justify-content:space-between; }
+.product-card-row .product-price{ font-weight:700; color:var(--ink); }
+.cart-icon-btn{ width:34px; height:34px; flex-shrink:0; border-radius:50%; background:var(--terracotta); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--cream); }
+.cart-icon-btn svg{ width:16px; height:16px; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.cart-icon-btn:hover{ background:var(--terracotta-dk); }
+.cart-icon-btn.product-add{
+  padding:0;
+  font-size:0;
+}
+.product-empty{ grid-column:1/-1; text-align:center; color:var(--brown); padding:40px 0; }
+
+.pagination{ display:flex; justify-content:center; gap:8px; margin-top:36px; }
+.page-btn{ min-width:36px; height:36px; padding:0 10px; border-radius:8px; border:1.5px solid var(--sand-dark); background:var(--cream); cursor:pointer; font:inherit; }
+.page-btn.active{ background:var(--terracotta); border-color:var(--terracotta); color:var(--cream); }
+.page-btn:disabled{ opacity:.4; cursor:not-allowed; }
+
+/* =========================================================
+   TRUST CARDS (shop / crafts / our-art pages)
+========================================================= */
+.trust-cards{ padding:36px 0; border-top:1px solid var(--sand-dark); border-bottom:1px solid var(--sand-dark); }
+.trust-cards-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:18px; }
+.trust-card{
+  display:flex; align-items:center; gap:12px;
+  padding:16px 14px;
+  border:1px solid transparent;
+  border-radius:var(--radius-md);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background-color .25s ease;
+}
+.trust-card:hover{
+  transform:translateY(-4px);
+  background:var(--cream-deep);
+  border-color:var(--sand-dark);
+  box-shadow:var(--shadow-card);
+}
+.trust-card svg{ width:30px; height:30px; flex-shrink:0; color:var(--terracotta); transition:transform .25s ease; }
+.trust-card:hover svg{ transform:scale(1.1); }
+.trust-card strong{ display:block; font-size:.9rem; color:var(--ink); }
+.trust-card span{ font-size:.78rem; color:var(--brown); }
+
+@media (max-width:1100px){
+  .category-strip{ grid-template-columns:repeat(4,1fr); }
+  .product-grid{ grid-template-columns:repeat(3,1fr); }
+  .trust-cards-grid{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:800px){
+  .shop-layout{ grid-template-columns:1fr; }
+  .filter-panel{ position:static; }
+  .product-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:640px){
+  .category-strip{ grid-template-columns:repeat(3,1fr); }
+  .product-grid{ grid-template-columns:1fr; }
+  .trust-cards-grid{ grid-template-columns:1fr 1fr; }
+}
+
+/* =========================================================
+   CONTACT CTA (added above the footer on every page)
+========================================================= */
+.contact-cta{ padding-block:64px; background:var(--cream-deep); border-block:1px solid var(--sand-dark); }
+.contact-cta-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:center; }
+.contact-cta-art{ position:relative; aspect-ratio:4/3; border-radius:var(--radius-md); overflow:hidden; border:1px solid var(--sand-dark); box-shadow:var(--shadow-card); }
+.contact-cta-art img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease; }
+.contact-cta-art:hover img{ transform:scale(1.06); }
+.contact-cta-copy h2{ margin:10px 0 12px; font-size:1.7rem; }
+.contact-cta-copy > p{ color:var(--brown); max-width:46ch; margin-bottom:22px; }
+.contact-cta-info{ display:flex; flex-direction:column; gap:12px; margin-bottom:26px; }
+.cta-info-item{ display:flex; align-items:center; gap:12px; font-size:.92rem; color:var(--ink); font-weight:600; }
+.cta-info-item svg{ width:20px; height:20px; flex-shrink:0; stroke:var(--terracotta); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+@media (max-width:880px){
+  .contact-cta-grid{ grid-template-columns:1fr; text-align:center; }
+  .contact-cta-art{ max-width:420px; margin-inline:auto; }
+  .contact-cta-info{ align-items:center; }
+  .cta-info-item{ justify-content:center; }
 }

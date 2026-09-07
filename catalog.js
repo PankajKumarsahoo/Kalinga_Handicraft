@@ -18,9 +18,11 @@
   function money(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
 
   function getWishlist() {
+    if (window.KHWish) return window.KHWish.getWishlist();
     try { return JSON.parse(localStorage.getItem(WISH_KEY)) || []; } catch (e) { return []; }
   }
   function toggleWishlist(id) {
+    if (window.KHWish) return window.KHWish.toggleWishlist(id);
     let list = getWishlist();
     if (list.includes(id)) list = list.filter(x => x !== id);
     else list.push(id);
@@ -143,13 +145,15 @@
     grid.innerHTML = list.length ? list.map(p => `
       <div class="product-card fx-card" data-id="${p.id}">
         <div class="product-card-img">
-          <img src="${p.image}" alt="${p.name}" loading="lazy">
+          <a href="product.html?id=${encodeURIComponent(p.id)}" aria-label="View ${p.name}">
+            <img src="${p.image}" alt="${p.name}" loading="lazy">
+          </a>
           <button type="button" class="wish-btn${wishlist.includes(p.id) ? ' active' : ''}" data-id="${p.id}" aria-label="Add to wishlist">
             <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-9C.5 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.65-9.5 9-9.5 9z"/></svg>
           </button>
         </div>
         <div class="product-card-body">
-          <h3>${p.name}</h3>
+          <a href="product.html?id=${encodeURIComponent(p.id)}" class="product-card-title-link"><h3>${p.name}</h3></a>
           <span class="product-card-sub">${p.category}</span>
           <div class="product-card-row">
             <span class="product-price">${money(p.price)}</span>
